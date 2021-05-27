@@ -125,6 +125,41 @@
 
 - 관계형 데이터베이스를 활용해 순위를 조회하고 기록을 갱신한다.
 
+```java
+private void createTable() {
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+			
+			StringBuilder sb = new StringBuilder();
+			String sql = sb.append("CREATE TABLE if not exists scorelist(")
+					.append("id INT AUTO_INCREMENT PRIMARY KEY, ")
+					.append("regdate DATETIME DEFAULT CURRENT_TIMESTAMP, ")
+					.append("name varchar(3) check(0 < length(name) and length(name) <=3), ") 
+					.append("score INT NOT NULL")
+					.append(")").toString();
+			
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+```
+
+
+
   ```java
   private String getMaxScore() throws SQLException { // 순위 조회
   	String sql = "SELECT regdate, name, score FROM scorelist ORDER BY score DESC";
