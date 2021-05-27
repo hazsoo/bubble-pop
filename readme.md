@@ -107,7 +107,7 @@
   			case KeyEvent.VK_A:
 			break;
             		case KeyEvent.VK_S:
-                      	break;
+			break;
   			case KeyEvent.VK_K:
                     	break;
   			case KeyEvent.VK_L:
