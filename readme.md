@@ -213,7 +213,7 @@ paint()는 해당 클래스가 시작될 때 자동으로 제일 먼저 실행�
 
 #### 3. Button으로 Note를 원할 때 멈추는 문제
 
-Timer로 구현해놓은 Note를 멈추기 위해 처음에는 synchronized를 이용해 stop() 혹은 wait()으로 계속 시도를 했다. 하지만 스레드를 멈추면 Note생성 메서드 뿐 아니라 Frame 전체가 멈추거나 에러가 먹는 현상이 발생했다. 그래서 isRunning이라는 boolean 인스턴스 변수를 만들어 리스너에서 그 값을 변경할 수 있게 만들고, Timer내 actionPerformed의 실행 조건으로 설정했다.
+Timer로 구현해놓은 Note를 멈추기 위해 처음에는 synchronized를 이용해 stop() 혹은 wait()으로 계속 시도를 했다. 하지만 스레드를 멈추면 Note생성 메서드 뿐 아니라 Frame 전체가 멈추거나 에러 현상이 발생했다. 그래서 isRunning이라는 boolean 인스턴스 변수를 만들어 리스너에서 그 값을 변경할 수 있게 만들고, Timer내 actionPerformed의 실행 조건으로 설정했다.
 
 
 
