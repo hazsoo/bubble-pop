@@ -205,4 +205,10 @@ Button을 누르면 Thread가 일시정지 되었다가, 한 번 더 누르면 �
 
 
 ## 시연영상 및 Javadoc 링크
+<div>
+	<a href="https://www.youtube.com/watch?v=비디오id" target="_blank"><image src = "https://img.youtube.com/vi/비디오id/mqdefault.jpg"></a>	
 
+</div>
+  
+  
+[Javadoc 링크](https://hazsoo.github.io/bubble-pop/blob/master/doc/index.html)
