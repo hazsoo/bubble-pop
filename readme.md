@@ -7,8 +7,9 @@
 최고 점수를 기록하여 사용자의 승부욕을 고취시킬 수 있다.
 
 
-
 <img width="30%" src="https://user-images.githubusercontent.com/81146582/119824191-99868f00-bf30-11eb-8d12-7200675a064e.JPG"/> <img width="30%" src="https://user-images.githubusercontent.com/81146582/119824346-c3d84c80-bf30-11eb-9c73-884b7658cd4f.JPG"/> <img width="30%" src="https://user-images.githubusercontent.com/81146582/119824439-dfdbee00-bf30-11eb-9932-ca0512f551a3.JPG"/>
+
+
 
 
 
@@ -46,7 +47,7 @@
   	g.fillOval(centerX - radius / 2, centerY - radius / 2, radius, radius);
   }
   ```
-  
+
   ```java
   private int nowRadius; // 줄어드는 지름
   private String nowNoteType; // 지금의 노트
@@ -105,13 +106,13 @@
   		for(Iterator<Integer> it = pressedKeys.iterator(); it.hasNext();) {
   			switch (it.next()) {
   			case KeyEvent.VK_A:
-				break;
-            		case KeyEvent.VK_S:
-				break;
+                      break;
+              case KeyEvent.VK_S:
+                      break;
   			case KeyEvent.VK_K:
-                    	break;
+                      break;
   			case KeyEvent.VK_L:
-  			break;
+  					break;
   		}
   	}
   }
@@ -120,45 +121,45 @@
       pressedKeys.remove(e.getKeyCode()); // 키 입력값 삭제
   }
   ```
-  
+
   
 
 - 관계형 데이터베이스를 활용해 순위를 조회하고 기록을 갱신한다.
 
-```java
-private void createTable() {
-	try {
-		Class.forName(JDBC_DRIVER);
-		conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-		
-		StringBuilder sb = new StringBuilder();
-		String sql = sb.append("CREATE TABLE if not exists scorelist(")
-					.append("id INT AUTO_INCREMENT PRIMARY KEY, ")
-					.append("regdate DATETIME DEFAULT CURRENT_TIMESTAMP, ")
-					.append("name varchar(3) check(0 < length(name) and length(name) <=3), ") 
-					.append("score INT NOT NULL")
-					.append(")").toString();
-		
-		ps = conn.prepareStatement(sql);
-		ps.execute();
-	} catch(Exception e) {
-        e.printStackTrace();
-	} finally {
-		try {
-		if (ps != null) {
-			ps.close();
-		}
-		if (conn != null) {
-			conn.close();
-		}
-		} catch (Exception e) {
-			e.printStackTrace();
-        }
-    }
-}
-```
+  ```java
+  private void createTable() { // 점수 저장할 테이블 생성
+  	try {
+  		Class.forName(JDBC_DRIVER);
+  		conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+  		
+  		StringBuilder sb = new StringBuilder();
+  		String sql = sb.append("CREATE TABLE if not exists scorelist(")
+  					.append("id INT AUTO_INCREMENT PRIMARY KEY, ")
+  					.append("regdate DATETIME DEFAULT CURRENT_TIMESTAMP, ")
+  					.append("name varchar(3) check(0 < length(name) and length(name) <=3), ") 
+  					.append("score INT NOT NULL")
+  					.append(")").toString();
+  			
+  		ps = conn.prepareStatement(sql);
+  		ps.execute();
+  	} catch(Exception e) {
+  		e.printStackTrace();
+  	} finally {
+  		try {
+  		if (ps != null) {
+  			ps.close();
+  		}
+  		if (conn != null) {
+  			conn.close();
+  		}
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  	}
+  }
+  ```
 
-
+  
 
   ```java
   private String getMaxScore() throws SQLException { // 순위 조회
@@ -207,13 +208,13 @@ BufferedImage를 이용해 원 모양의 이미지를 줄이는 방법도 있었
 
 #### 2. 원이 생성되는 시점과 줄어드는 속도를 설정하는 문제
 
-paint()는 해당 클래스가 시작될 때 자동으로 제일 먼저 실행된다. 그래서 실행이 되기 전 delay를 주기 위해 swing.Timer 클래스가 한번 실행되도록 했고, 그 내부에 paint()와 repaint()를 지름이 마이너스가 될 때까지 반복하는 Timer 클래스로 한번 더 사용했다.
+paint()는 해당 클래스가 시작될 때 자동으로 제일 먼저 실행된다. 그래서 실행이 되기 전 delay를 주기 위해 swing.Timer 를 한번만 실행되도록 했고, 그 내부에 paint()와 repaint()를 지름이 마이너스가 될 때까지 반복하는 Timer 클래스 한번 더 사용했다.
 
 
 
-#### 3. Button으로 Note를 원할 때 멈추는 문제
+#### 3. Button으로 Note를 원하는 시점에 멈추는 문제
 
-Timer로 구현해놓은 Note를 멈추기 위해 처음에는 synchronized를 이용해 stop() 혹은 wait()으로 계속 시도를 했다. 하지만 스레드를 멈추면 Note생성 메서드 뿐 아니라 Frame 전체가 멈추거나 에러 현상이 발생했다. 그래서 isRunning이라는 boolean 인스턴스 변수를 만들어 리스너에서 그 값을 변경할 수 있게 만들고, Timer내 actionPerformed의 실행 조건으로 설정했다.
+Timer로 구현해놓은 Note를 멈추기 위해 처음에는 synchronized를 이용해 stop() 혹은 wait()으로 계속 시도를 했다. 하지만 스레드를 멈추면 Note생성 메서드 뿐 아니라 Frame 전체가 멈추거나 에러가 먹는 현상이 발생했다. 그래서 isRunning이라는 boolean 인스턴스 변수를 만들어 리스너에서 그 값을 변경할 수 있게 만들고, Timer내 actionPerformed의 실행 조건으로 설정했다.
 
 
 
@@ -240,10 +241,10 @@ Button을 누르면 Thread가 일시정지 되었다가, 한 번 더 누르면 �
 
 
 ## 시연영상 및 Javadoc 링크
+
 <div>
 	<a href="https://www.youtube.com/watch?v=비디오id" target="_blank"><image src = "https://img.youtube.com/vi/비디오id/mqdefault.jpg"></a>	
 
 </div>
   
-  
-[Javadoc 링크](https://hazsoo.github.io/bubble-pop/doc/index.html)
+  [Javadoc 링크](https://hazsoo.github.io/bubble-pop/blob/master/doc/index.html)
