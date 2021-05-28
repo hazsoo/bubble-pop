@@ -57,7 +57,6 @@
   	for(int i = 0; i < beats.length; ++i) {
   		final int ii = i;
   		final NoteBorder border = new NoteBorder(beats[ii].getTime(),beats[ii].getNoteType());
-  		NoteBorder.setNew(true);
   		border.setVisible(false);
   		borderList.add(border);
   		
