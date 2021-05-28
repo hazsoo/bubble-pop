@@ -34,50 +34,137 @@ import javax.swing.Timer;
  */
 public class Game extends JFrame implements KeyListener{
 
+	/**
+	 * 게임 실행창의 메인 프레임
+	 */
 	private JFrame frame = new JFrame();
 	
+	/**
+	 * 일시정지 아이콘
+	 */
 	private ImageIcon pause = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/pauseBtn.png");
+	/**
+	 * 일시정지 아이콘에서 불러온 이미지
+	 */
 	private Image img0 = pause.getImage();
+	/**
+	 * 바뀐 스케일의 일시정지 이미지
+	 */
 	private Image changepauseImage = img0.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+	/**
+	 * 바뀐 스케일의 일시정지 아이콘
+	 */
 	private ImageIcon changepauseIcon = new ImageIcon(changepauseImage);
+	/**
+	 * 일시정지 버튼
+	 */
 	private JButton pauseBtn = new JButton(changepauseIcon);
 	
+	/**
+	 * 파란색 KeyPressed 판정 아이콘
+	 */
 	private ImageIcon pressedblueIcon = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/pressedbluecircle.png");
+	/**
+	 * 파란색 KeyPressed 판정 아이콘에서 불러온 이미지
+	 */
 	private Image img = pressedblueIcon.getImage();
+	/**
+	 * 바뀐 스케일의 파란색 KeyPressed 판정 이미지
+	 */
 	private Image changepressedblueImage = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	
+	/**
+	 * 초록색 KeyPressed 판정 아이콘
+	 */
 	private ImageIcon pressedgreenIcon = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/pressedgreencircle.png");
+	/**
+	 * 초록색 KeyPressed 판정 아이콘에서 불러온 이미지
+	 */
 	private Image img2 = pressedgreenIcon.getImage();
+	/**
+	 * 바뀐 스케일의 초록색 KeyPressed 판정 이미지
+	 */
 	private Image changepressedgreenImage = img2.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	
+	/**
+	 * 빨간색 KeyPressed 판정 아이콘
+	 */
 	private ImageIcon pressedredIcon = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/pressedredcircle.png");
+	/**
+	 * 빨간색 KeyPressed 판정 아이콘에서 불러온 이미지
+	 */
 	private Image img3 = pressedredIcon.getImage();
+	/**
+	 * 바뀐 스케일의 빨간색 KeyPressed 판정 이미지
+	 */
 	private Image changepressedredImage = img3.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	
+	/**
+	 * 노란색 KeyPressed 판정 아이콘
+	 */
 	private ImageIcon pressedyellowIcon = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/pressedyellowcircle.png");
+	/**
+	 * 노란색 KeyPressed 판정 아이콘에서 불러온 이미지
+	 */
 	private Image img4 = pressedyellowIcon.getImage();
+	/**
+	 * 바뀐 스케일의 노란색 KeyPressed 판정 이미지
+	 */
 	private Image changepressedyellowImage = img4.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	
-	private JLabel lifeLb = new JLabel(); // 남은 목숨 라벨
-	private JLabel perfectLb = new JLabel(); // perfect, great, miss 등 표시 라벨
-	private JLabel comboLb = new JLabel(); // 콤보 숫자 라벨
-	private JLabel scoreLb = new JLabel(); // 점수 라벨
+	/**
+	 * 남은 목숨 라벨
+	 */
+	private JLabel lifeLb = new JLabel();
+	/**
+	 * perfect, great, miss 등 표시 라벨
+	 */
+	private JLabel perfectLb = new JLabel();
+	/**
+	 * 콤보 숫자 라벨
+	 */
+	private JLabel comboLb = new JLabel();
+	/**
+	 * 점수 라벨
+	 */
+	private JLabel scoreLb = new JLabel();
 	
-	private ArrayList<Note> noteList = new ArrayList<Note>(); // 판정 원 리스트
-	private ArrayList<Note> pressednoteList = new ArrayList<Note>(); // keyPressed 판정 원 리스트
-	private ArrayList<NoteBorder> borderList = new ArrayList<NoteBorder>(); // 노트 원 리스트
+	/**
+	 * 판정 원 리스트
+	 */
+	private ArrayList<Note> noteList = new ArrayList<Note>();
+	/**
+	 * keyPressed 판정 원 리스트
+	 */
+	private ArrayList<Note> pressednoteList = new ArrayList<Note>();
+	/**
+	 * 노트 리스트
+	 */
+	private ArrayList<NoteBorder> borderList = new ArrayList<NoteBorder>();
 	
-	private JButton restartBtn = new JButton("RESTART"); // 다시시작
-	private JButton goMenuBtn = new JButton("MENU"); // 처음으로
+	/**
+	 * 게임을 다시 시작하는 버튼
+	 */
+	private JButton restartBtn = new JButton("RESTART");
+	/**
+	 * 게임의 메뉴로 가는 버튼
+	 */
+	private JButton goMenuBtn = new JButton("MENU");
 	
+	/**
+	 * 음악을 재생하기 위한 객체 생성
+	 */
 	private Music music = new Music();
 	
-	private void initCircles() { // 판정 원 이미지 추가
+	/**
+	 * 판정 원 이미지 추가 메서드
+	 */
+	private void initCircles() {
 		ImageIcon[] circleImageIcons = {
 				new ImageIcon("E:/_00_java_project/beatgame/src/images/bluecircle.png"),
 				new ImageIcon("E:/_00_java_project/beatgame/src/images/greencircle.png"),
@@ -101,7 +188,10 @@ public class Game extends JFrame implements KeyListener{
 		}
 	}
 	
-	private void pressedCircles() { // keyPressed 판정 원 이미지 추가
+	/**
+	 * keyPressed 판정 원 이미지 추가 메서드
+	 */
+	private void pressedCircles() { 
 		ImageIcon[] pressedcircleImageIcons = {
 				new ImageIcon(changepressedblueImage),
 				new ImageIcon(changepressedgreenImage),
@@ -125,10 +215,17 @@ public class Game extends JFrame implements KeyListener{
 		}
 	}
 
-	private void showCircles(boolean visible) { // 판정 원 보이기, 가리기
+	/**
+	 * 판정 원 보이기 혹은 가리기 메서드. 일시정지 화면 전환 시 필요.
+	 * @param visible 보이면 true, 안보이면 false
+	 */
+	private void showCircles(boolean visible) {
 		noteList.stream().forEach(n -> n.setVisible(visible));
 	}
 	
+	/**
+	 * 노트 생성 시간 및 노트 종류 배열
+	 */
 	private Beat[] beats = new Beat[] { 
 			new Beat(Main.START_TIME + 940, "A"),
 			new Beat(Main.START_TIME + 1880, "S"),
@@ -173,25 +270,45 @@ public class Game extends JFrame implements KeyListener{
 			new Beat(Main.START_TIME + 29100, "K"),
 			};
 	
+	/**
+	 * 노트 생성 시 딜레이 넣는 일회성 타이머
+	 */
 	private Timer timer;
+	/**
+	 * 노트 사이즈 줄이는 반복 타이머
+	 */
 	private Timer t;
-	private int nowRadius; // 줄어드는 지름
-	private String nowNoteType; // 지금의 노트
-	private boolean isRunning = true; // 노트 정지를 위한 논리값
+	/**
+	 * 줄어드는 지름
+	 */
+	private int nowRadius;
+	/**
+	 * 지금의 노트 종류
+	 */
+	private String nowNoteType;
+	/**
+	 * 노트 정지를 위한 논리 변수
+	 */
+	private boolean isRunning = true;
 	
+	/**
+	 * 타이머 스레드 종료 메서드
+	 */
 	public synchronized void stopTimer() {
 		timer.stop();
 		timer = null;
 	}
 	
-	public synchronized void noteCircles() { // 노트 그리기
+	/**
+	 * 노트 그리기 메서드
+	 */
+	public synchronized void noteCircles() {
 		for(int i = 0; i < beats.length; ++i) {
 			final int ii = i;
 			final NoteBorder border = new NoteBorder(beats[ii].getTime(),beats[ii].getNoteType());
 			border.setVisible(false);
 			borderList.add(border);
 		
-			// 노트 생성 시 딜레이 넣는 일회성 타이머
 			timer = new Timer(beats[ii].getTime(), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -199,7 +316,6 @@ public class Game extends JFrame implements KeyListener{
 						((Timer)e.getSource()).stop();
 					} else {
 						border.setVisible(true);
-						// 노트 사이즈 줄이는 반복 타이머
 						t = new Timer(Main.NOTE_SPEED2, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e1) {
@@ -212,16 +328,20 @@ public class Game extends JFrame implements KeyListener{
 								nowNoteType = beats[ii].getNoteType();
 							}
 						});
-						t.start(); // 반복
+						t.start();
 					}
 				}
 			} );
-			timer.setRepeats(false); // 한번만 동작
+			timer.setRepeats(false);
 			timer.start();
 		}
 	}
 	
-	// 일시정지 버튼 리스너
+	/**
+	 * 일시정지 버튼 리스너<br>
+	 * 게임 화면에서 restart와 menu버튼만 있는 화면으로 전환한다.<br>
+	 * 음악이 정지되고 노트도 정지된다.
+	 */
 	private ActionListener pauseListener = new ActionListener() {
 		
 		@Override
@@ -241,8 +361,13 @@ public class Game extends JFrame implements KeyListener{
 		}
 	};
 	
+	/**
+	 * 게임클래스 객체
+	 */
 	private Game game;
-	// restart, menu 버튼 리스너
+	/**
+	 * restart, menu 마우스 리스너
+	 */
 	private ActionListener selectListener = new ActionListener() {
 		
 		@Override
@@ -265,10 +390,25 @@ public class Game extends JFrame implements KeyListener{
 		
 	}
 
+	/**
+	 * 점수
+	 */
 	public static int score;
+	/**
+	 * perfect, great, good, bad, miss
+	 */
 	public static String perfect;
+	/**
+	 * 콤보 수
+	 */
 	public static int combo;
+	/**
+	 * 남은 목숨 수
+	 */
 	public static int life;
+	/**
+	 * 키보드 동시 입력을 위한 set
+	 */
 	private final HashSet<Integer> pressedKeys = new HashSet<>();
 	
 	@Override
@@ -492,7 +632,9 @@ public class Game extends JFrame implements KeyListener{
 		}
 	}
 	
-	
+	/**
+	 * 게임 화면 생성자. 게임 화면을 초기화한다.
+	 */
 	public Game() {
 		
 		// 게임 재시작 시 초기화

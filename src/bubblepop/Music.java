@@ -12,15 +12,28 @@ import javax.sound.sampled.Clip;
  *
  */
 public class Music extends Thread {
+	/**
+	 * 음악 폴더 경로
+	 */
 	private String musicFolder = "E:/_00_java_project/beatgame/src/musics";
+	/**
+	 * 음악 클립 객체 생성
+	 */
 	private Clip clip;
 	
+	/**
+	 * 음악 정지 메서드
+	 */
 	public void stopMusic() {
 		if (clip != null) {
 			clip.stop();
 		}
 	}
 	
+	/**
+	 * 음악 재생 메서드
+	 * @param musicName 음악 제목
+	 */
 	public void playMusic(String musicName) {
 		stopMusic(); // 실행중이던 음악 정지
 		try {

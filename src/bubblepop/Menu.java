@@ -26,41 +26,112 @@ import javax.swing.JPanel;
  */
 public class Menu extends JFrame implements KeyListener {
 
+	/**
+	 * 메뉴 창 메인 패널
+	 */
 	private JPanel bigPanel = new JPanel();
 
+	/**
+	 * 게임로고 아이콘
+	 */
 	private ImageIcon gameLogo = new ImageIcon("E:/_00_java_project/beatgame/src/images/gamelogo.png");
+	/**
+	 * 게임로고 아이콘에서 불러온 이미지
+	 */
 	private Image logoimg = gameLogo.getImage();
+	/**
+	 * 바뀐 스케일의 게임로고 이미지
+	 */
 	private Image changelogoImage = logoimg.getScaledInstance(1000, 500, Image.SCALE_SMOOTH);
+	/**
+	 * 바뀐 스케일의 게임로고 아이콘
+	 */
 	private ImageIcon changelogoIcon = new ImageIcon(changelogoImage);
+	/**
+	 * 게임로고 라벨
+	 */
 	private JLabel gameLogoLb = new JLabel(changelogoIcon);
 	
+	/**
+	 * Select Music 텍스트 라벨
+	 */
 	private JLabel selectLb = new JLabel("Select Music");
+	/**
+	 * 게임 제목 표시 라벨
+	 */
 	private JLabel musicTitleLb = new JLabel("RetroVision - Campfire");
+	/**
+	 * 게임 시작 버튼
+	 */
 	private JButton startBtn = new JButton("START");
 
+	/**
+	 * 왼쪽 화살표 아이콘
+	 */
 	private ImageIcon leftImage = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/leftimage.png");
+	/**
+	 * 왼쪽 화살표 아이콘에서 불러온 이미지
+	 */
 	private Image img = leftImage.getImage();
+	/**
+	 * 바뀐 스케일의 왼쪽 화살표 이미지
+	 */
 	private Image changeleftImage = img.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
+	/**
+	 * 바뀐 스케일의 왼쪽 화살표 아이콘
+	 */
 	private ImageIcon changeleftIcon = new ImageIcon(changeleftImage);
+	/**
+	 * 왼쪽 화살표 버튼
+	 */
 	private JButton leftBtn = new JButton(changeleftIcon);
 
+	/**
+	 * 오른쪽 화살표 아이콘
+	 */
 	private ImageIcon rightImage = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/rightimage.png");
+	/**
+	 * 오른쪽 화살표 아이콘에서 불러온 이미지
+	 */
 	private Image img2 = rightImage.getImage();
+	/**
+	 * 바뀐 스케일의 오른쪽 화살표 이미지
+	 */
 	private Image changerightImage = img2.getScaledInstance(100, 75, Image.SCALE_SMOOTH);
+	/**
+	 * 바뀐 스케일의 오른쪽 화살표 아이콘
+	 */
 	private ImageIcon changerightIcon = new ImageIcon(changerightImage);
+	/**
+	 * 오른쪽 화살표 버튼
+	 */
 	private JButton rightBtn = new JButton(changerightIcon);
 	
+	/**
+	 * 에프터 이펙트 이미지 아이콘
+	 */
 	private ImageIcon songhzImage = 
 			new ImageIcon("E:/_00_java_project/beatgame/src/images/song1hz640.gif");
+	/**
+	 * 에프터 이펙트 이미지 라벨
+	 */
 	private JLabel hzLabel = new JLabel(songhzImage);
 	
+	/**
+	 * 음악을 재생하기 위한 객체 생성
+	 */
 	private Music music = new Music();
+	/**
+	 * 게임 객체 생성
+	 */
 	public Game game;
 	
 	
-	// 왼쪽 화살표 버튼 리스너
+	/**
+	 * 왼쪽 화살표 버튼 리스너
+	 */
 	private ActionListener leftListener = new ActionListener() {
 		
 		@Override
@@ -73,7 +144,9 @@ public class Menu extends JFrame implements KeyListener {
 		}
 	};
 	
-	// 오른쪽 화살표 버튼 리스너
+	/**
+	 * 오른쪽 화살표 버튼 리스너
+	 */
 	private ActionListener rightListener = new ActionListener() {
 		
 		@Override
@@ -86,7 +159,9 @@ public class Menu extends JFrame implements KeyListener {
 		}
 	};
 	
-	// START 버튼 리스너
+	/**
+	 * START 버튼 리스너
+	 */
 	private ActionListener startListener = new ActionListener() {
 		
 		@Override
@@ -100,7 +175,9 @@ public class Menu extends JFrame implements KeyListener {
 	};
 	
 	
-	
+	/**
+	 * 메뉴 창 생성자
+	 */
 	public Menu() {
 		
 		gameLogoLb.setHorizontalAlignment(JLabel.CENTER);

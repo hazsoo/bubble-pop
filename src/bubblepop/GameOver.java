@@ -34,31 +34,88 @@ import javax.swing.JTextField;
  */
 public class GameOver extends JFrame {
 	
+	/**
+	 * 게임 오버창의 메인 프레임
+	 */
 	private JFrame frame = new JFrame();
-	private JButton nullBtn = new JButton(); // 가짜 버튼
+	/**
+	 * 가짜 버튼
+	 */
+	private JButton nullBtn = new JButton();
 	
-	private JLabel gameOverLb = new JLabel("GAME OVER"); // 게임오버글자
-	private JLabel gradeLb = new JLabel(); // 등급 SS, S, A, B, C, D, F
-	private JLabel finalScoreLb = new JLabel(); // 최종 점수
-	private JButton newGameBtn = new JButton("NEW GAME"); // 게임 다시 버튼
-	private JButton endGameBtn = new JButton("END GAME"); // 게임 끄기 버튼
+	/**
+	 * GAME OVER 텍스트 라벨
+	 */
+	private JLabel gameOverLb = new JLabel("GAME OVER");
+	/**
+	 * 최종 점수에 따른 등급 라벨 (SS, S, A, B, C, D, F)
+	 */
+	private JLabel gradeLb = new JLabel();
+	/**
+	 * 최종 점수 라벨
+	 */
+	private JLabel finalScoreLb = new JLabel();
+	/**
+	 * 새로운 게임 시작 버튼
+	 */
+	private JButton newGameBtn = new JButton("NEW GAME");
+	/**
+	 * 게임 종료 버튼
+	 */
+	private JButton endGameBtn = new JButton("END GAME");
 	
-	private JLabel maxScoreLb = new JLabel(); // 최고 점수 목록 표시
-	private JLabel newRecordLb = new JLabel("NEW RECORD!"); // 최고 점수 달성 안내
-	private JTextField setID = new JTextField(); // 최고점수 달성시 이름 입력
+	/**
+	 * 데이터베이스의 점수 내림차순으로 표시
+	 */
+	private JLabel maxScoreLb = new JLabel();
+	/**
+	 * 최고 점수 달성 안내 라벨
+	 */
+	private JLabel newRecordLb = new JLabel("NEW RECORD!");
+	/**
+	 * 데이터베이스에 점수와 이름을 추가하기 위한 입력창
+	 */
+	private JTextField setID = new JTextField();
 	
+	/**
+	 * mariadb 드라이버 위치
+	 */
 	private final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
+	/**
+	 * 데이터베이스 URL
+	 */
 	private final String DB_URL = "jdbc:mysql://localhost:3306/testDB?"
 								+ "useUnicode=true"
 								+ "&characterEncoding=utf8";
+	/**
+	 * 데이터베이스 username
+	 */
 	private final String USERNAME = "root";
+	/**
+	 * 데이터베이스 비밀번호
+	 */
 	private final String PASSWORD = "1234";
+	/**
+	 * 데이터베이스 연결 객체
+	 */
 	private Connection conn = null;
+	/**
+	 * 데이터베이스 연결 준비 객체
+	 */
 	private PreparedStatement ps = null;
+	/**
+	 * 데이터베이스 결과 객체
+	 */
 	private ResultSet rs = null;
 	
+	/**
+	 * 등급 초기화
+	 */
 	public String grade = "F";
-	public void setGrade() { // score에 따른 grade 설정
+	/**
+	 * 최종 점수에 따른 등급 설정 메서드
+	 */
+	public void setGrade() {
 		if(Game.score > 100000) {
 			grade = "SS";
 		} else if(Game.score > 60000) {
@@ -74,7 +131,9 @@ public class GameOver extends JFrame {
 		}
 	}
 	
-	// 게임 재시작, 종료 버튼 리스너
+	/**
+	 * 게임 재시작, 종료 버튼 리스너
+	 */
 	private ActionListener neworendGameListener = new ActionListener() {
 		
 		@Override
@@ -89,7 +148,9 @@ public class GameOver extends JFrame {
 		}
 	};
 	
-	// 마우스 리스너
+	/**
+	 * 텍스트 입력창 마우스 리스너
+	 */
 	private MouseListener removeTextListener = new MouseListener() {
 		
 		@Override
@@ -110,6 +171,11 @@ public class GameOver extends JFrame {
 		}
 	};
 	
+	/**
+	 * 텍스트 입력창 키보드 리스너<br>
+	 * 입력 후 엔터키 입력 시 데이터베이스에 값 저장<br>
+	 * 데이터베이스에서 최고 점수 목록 추출
+	 */
 	private KeyListener inputNameListener = new KeyListener() {
 		
 		@Override
@@ -155,7 +221,9 @@ public class GameOver extends JFrame {
 		}
 	};
 	
-	
+	/**
+	 * 게임 오버창 생성자
+	 */
 	public GameOver() {
 		
 		createTable();
@@ -253,9 +321,10 @@ public class GameOver extends JFrame {
 	}		
 	
 	/**
-	 * 관계형 데이터베이스 연결
+	 * 관계형 데이터베이스<br>
+	 * 점수를 저장할 테이블 생성
 	 */
-	private void createTable() { // 점수 저장할 테이블 생성
+	private void createTable() {
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -286,7 +355,12 @@ public class GameOver extends JFrame {
 		}
 	}
 	
-	private void setMaxScore() throws SQLException { // 최고 점수 저장
+	/**
+	 * 관계형 데이터베이스<br>
+	 * 점수 및 이름 저장
+	 * @throws SQLException SQL Server의 경고 또는 오류
+	 */
+	private void setMaxScore() throws SQLException {
 		String sql = "INSERT INTO scorelist(name, score) VALUES(?, ?)";
 		
 		String name = setID.getText();
@@ -298,7 +372,13 @@ public class GameOver extends JFrame {
 		ps.execute();
 	}
 	
-	private String getMaxScore() throws SQLException { // 최고 점수 추출
+	/**
+	 * 관계형 데이터베이스<br>
+	 * 최고 점수 목록 추출
+	 * @return String 최고 점수 목록
+	 * @throws SQLException SQL Server의 경고 또는 오류
+	 */
+	private String getMaxScore() throws SQLException {
 		String sql = "SELECT regdate, name, score FROM scorelist ORDER BY score DESC";
 		ps = conn.prepareStatement(sql);
 		rs = ps.executeQuery();

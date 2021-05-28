@@ -1,7 +1,7 @@
 package bubblepop;
 
 /**
- * 메인 클래스.
+ * 메인 클래스. 프로그램에 사용되는 정적 변수를 초기화 함.
  * @author Jisoo Ha
  *
  */
@@ -86,7 +86,7 @@ public class Main {
 	
 	/**
 	 * 메인 메서드
-	 * @param args 메인
+	 * @param args 게임 실행
 	 */
 	public static void main(String[] args) {
 		

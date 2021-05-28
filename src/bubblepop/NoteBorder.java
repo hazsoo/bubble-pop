@@ -13,19 +13,38 @@ import javax.swing.JComponent;
  * <ol>
  *  <li>노트 그리기</li>
  *  <li>지름 줄어든 노트 그리기</li>
+ * </ol>
  * @author Jisoo Ha
  *
  */
 public class NoteBorder extends JComponent implements Runnable {
 	
+	/**
+	 * 노트 최대 지름
+	 */
 	private static final int MAX_RADIUS = 1280;
 	
-	private int centerX, centerY; // 노트 센터 좌표
-	public  int radius = MAX_RADIUS; // 최대 지름
-	private int t; // 노트 생성 시간
+	/**
+	 * 노트 센터 좌표
+	 */
+	private int centerX, centerY;
+	/**
+	 * 노트 지름
+	 */
+	public  int radius = MAX_RADIUS;
+	/**
+	 * 노트 생성 시간
+	 */
+	private int t;
 	
+	/**
+	 * 노트 색깔
+	 */
 	private Color color;
 	
+	/**
+	 * 스레드 동작 메서드
+	 */
 	public void run() {
 		while(!Thread.interrupted()) {
 			synchronized (this) {
@@ -38,6 +57,11 @@ public class NoteBorder extends JComponent implements Runnable {
 		}
 	}
 	
+	/**
+	 * Beat 클래스의 배열의 노트를 입력받아 각 노트의 센터 좌표를 구하는 메서드
+	 * @param t 노트 생성 시간
+	 * @param noteType 노트 종류
+	 */
 	public NoteBorder(int t, String noteType) {
 		this.t = t;
 		if(noteType.equals("A")) {
@@ -60,21 +84,34 @@ public class NoteBorder extends JComponent implements Runnable {
 		setBounds(0, 0, 3000, 3000);
 	}
 	
-	
+	/**
+	 * Graphics로 노트를 그림
+	 */
 	public void paint(Graphics g) {
 		radius -= Main.NOTE_SPEED1; // 지름 계속 줄이기
 		g.setColor(color);
 		g.fillOval(centerX - radius / 2, centerY - radius / 2, radius, radius);
 	}
 	
+	/**
+	 * paint()를 다시 실행
+	 */
 	public void resizeCircle() {
 		repaint();
 	}
 	
+	/**
+	 * 노트의 지름을 받음
+	 * @return 지름
+	 */
 	public int getRadius() {
 		return radius;
 	}
 
+	/**
+	 * 노트의 지름을 설정
+	 * @param radius 지름
+	 */
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
