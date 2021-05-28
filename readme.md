@@ -235,4 +235,11 @@ Label을 사용하여 매 Key 입력에 콤보 수, 점수, 등의 게임적 요
 
 Button을 누르면 Thread가 일시정지 되었다가, 한 번 더 누르면 멈췄던 부분부터 다시 실행되는 기능을 추가하고 싶었으나, 오디오 파일을 멈춘 부분부터 다시 재생하는 것은 해결하지 못했다. 자바의 여러 가지 오디오 재생 클래스 중 멈춘 부분의 시점이나 byte를 기억하는 방법을 찾아 개선할 것이다.
 
+## 시연영상 및 Javadoc 링크
 
+<div>
+	<a href="https://www.youtube.com/watch?v=ALRuJ5gA2ig" target="_blank"><image src = "https://img.youtube.com/vi/ALRuJ5gA2ig/mqdefault.jpg"></a>	
+
+</div>
+  
+  [Javadoc 링크](https://hazsoo.github.io/bubble-pop/doc/index.html)
