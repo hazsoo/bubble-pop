@@ -242,4 +242,4 @@ Button을 누르면 Thread가 일시정지 되었다가, 한 번 더 누르면 �
 
 </div>
   
-  [Javadoc 링크](https://hazsoo.github.io/bubble-pop/doc/index.html)
+  [Javadoc 링크](https://hazsoo.github.io/bubble-pop/doc/bubblepop/package-summary.html)
