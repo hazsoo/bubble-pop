@@ -106,7 +106,7 @@
   			switch (it.next()) {
   			case KeyEvent.VK_A:
                       break;
-              case KeyEvent.VK_S:
+              		case KeyEvent.VK_S:
                       break;
   			case KeyEvent.VK_K:
                       break;
